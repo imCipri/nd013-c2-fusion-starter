@@ -145,6 +145,38 @@ We can observe some of the following scenarios:
 3. Finally, in this frame, we cannot state the presence of cars behind the 4 in the front.
 <img src="report/overlapped_cars.png"/> 
 
+These are some examples of the available data and other scenarios can be found. Observing the images, we can define some common features in the vehicles, that are captured by the lidar. For example, the silhouette of the car (an oblique line followed by a curve and then a straight line to the floor), and the windows slots (represented by white areas inside the cars, probably because the mirrors deflect the lidar laser preventing it from returning to the sensor).
+
+Next, we inserted the code for the creation of the height map
+<img src="report/height_img_frame51.png"/>
+and the intensity map
+<img src="report/intensity_img_frame51.png"/>
+To visualize these maps, modify the following param: exec_detection = ['bev_from_pcl']
+
+And we added the visualization of the labels both on images and on height maps:
+<img src="report/labels_vs_detectedObj_frame51.png"/>
+To realize these images, modify the params as follow:
+- exec_detection = ['bev_from_pcl', 'detect_objects']
+- exec_visualization = ['show_objects_in_bev_labels_in_camera']
+
+
+Finally, we assessed the performance of the object detection model by evaluating TP,FP,FN on 100 frames (from 50 to 150).
+<img src="report/stats_results.png"/>
+To get the same results, modify the params as follow:
+- data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord'
+- show_only_frames = [50, 150]
+- exec_detection = ['bev_from_pcl', 'detect_objects', 'validate_object_labels', 'measure_detection_performance']
+- exec_tracking = []
+- exec_visualization = ['show_detection_performance']
+- configs_det = det.load_configs(model_name="darknet")
+
+As a last checkpoint, we performed the same performance analysis on the same dataset, but assigning the labels as prediction. 
+This is obtained by modify the flag: 'configs_det.use_labels_as_objects = True'.
+
+As shown in the image below, the code returns both perfect precision/recall and no errors in the regression part as aspected.
+<img src="report/stats_check.png"/>
+
+
 
 
 
