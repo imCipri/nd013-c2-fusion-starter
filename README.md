@@ -120,7 +120,7 @@ In case you do not include a specific step into the list, pre-computed binary fi
 
 Even without solving any of the tasks, the project code can be executed. 
 
-The final project uses pre-computed lidar detections in order for all students to have the same input data. If you use the workspace, the data is prepared there already. Otherwise, [download the pre-computed lidar detections](https://drive.google.com/drive/folders/1IkqFGYTF6Fh_d8J3UjQOSNJ2V42UDZpO?usp=sharing) (~1 GB), unzip them and put them in the folder `results`.
+The final project uses pre-computed lidar detections in order for all students to have the same input data. [Download the pre-computed lidar detections](https://drive.google.com/drive/folders/1IkqFGYTF6Fh_d8J3UjQOSNJ2V42UDZpO?usp=sharing) (~1 GB), unzip them and put them in the folder `results`.
 
 ## External Dependencies
 Parts of this project are based on the following repositories: 
@@ -128,6 +128,19 @@ Parts of this project are based on the following repositories:
 - [Super Fast and Accurate 3D Object Detection based on 3D LiDAR Point Clouds](https://github.com/maudzung/SFA3D)
 - [Complex-YOLO: Real-time 3D Object Detection on Point Clouds](https://github.com/maudzung/Complex-YOLOv4-Pytorch)
 
+## RESULT ANALYSIS
+First, we look at the point-cloud images from the dataset, by setting the following params in the loop_over_dataset.py file:
+- data_filename = 'training_segment-10963653239323173269_1924_000_1944_000_with_camera_labels.tfrecord'
+- show_only_frames = [0,200]
+- exec_data = []
+- exec_detection = []
+- exec_tracking = []
+- exec_visualization = ['show_pcl']
 
-## License
-[License](LICENSE.md)
+We can observe 
+
+
+
+
+
+
