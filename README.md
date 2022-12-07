@@ -148,21 +148,25 @@ We can observe some of the following scenarios:
 These are some examples of the available data and other scenarios can be found. Observing the images, we can define some common features in the vehicles, that are captured by the lidar. For example, the silhouette of the car (an oblique line followed by a curve and then a straight line to the floor), and the windows slots (represented by white areas inside the cars, probably because the mirrors deflect the lidar laser preventing it from returning to the sensor).
 
 Next, we inserted the code for the creation of the height map
+
 <img src="report/height_img_frame51.png"/>
 
 and the intensity map
+
 <img src="report/intensity_img_frame51.png"/>
 
 To visualize these maps, modify the following param: 'exec_detection = ['bev_from_pcl']'
 
-And we added the visualization of the labels both on images and on height maps:
+Then, we added the visualization of the labels both on images and on height maps:
+
 <img src="report/labels_vs_detectedObj_frame51.png"/>
+
 To realize these images, modify the params as follow:
 - exec_detection = ['bev_from_pcl', 'detect_objects']
 - exec_visualization = ['show_objects_in_bev_labels_in_camera']
 
 
-Finally, we assessed the performance of the object detection model by evaluating TP,FP,FN on 100 frames (from 50 to 150).
+Finally, we assessed the performance of the object detection model by evaluating it on 100 frames (from 50 to 150).
 <img src="report/stats_results.png"/>
 To get the same results, modify the params as follow:
 - data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord'
