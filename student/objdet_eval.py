@@ -49,17 +49,34 @@ def measure_detection_performance(detections, labels, labels_valid, min_iou=0.5)
             print("student task ID_S4_EX1 ")
 
             ## step 1 : extract the four corners of the current label bounding-box
-            
-            ## step 2 : loop over all detected objects
+            gt_corners = tools.compute_box_corners(label.box.center_x,label.box.center_y,label.box.width,label.box.length,label.box.heading)
+            gt = Polygon(gt_corners)
 
+            ## step 2 : loop over all detected objects
+            for det in detections:
                 ## step 3 : extract the four corners of the current detection
-                
-                ## step 4 : computer the center distance between label and detection bounding-box in x, y, and z
-                
+                id,x,y,z,h,w,l,yaw = det
+                pred_center_x = x
+                pred_center_y = y
+                pred_corners = tools.compute_box_corners(pred_center_x,pred_center_y,w,l,yaw)
+                pred = Polygon(pred_corners)
+
+                ## step 4 : compute the center distance between label and detection bounding-box in x, y, and z
+                dist_x = label.box.center_x - pred_center_x
+                dist_y = label.box.center_y - pred_center_y
+                dist_z = label.box.center_z - z
+
                 ## step 5 : compute the intersection over union (IOU) between label and detection bounding-box
-                
+                intersection = gt.intersection(pred)
+                union = gt.union(pred)
+
+                iou = intersection.area / union.area
+
                 ## step 6 : if IOU exceeds min_iou threshold, store [iou,dist_x, dist_y, dist_z] in matches_lab_det and increase the TP count
-                
+                if iou > min_iou:
+                    matches_lab_det.append([iou,dist_x,dist_y,dist_z])
+                    true_positives += 1
+                                 
             #######
             ####### ID_S4_EX1 END #######     
             
@@ -77,13 +94,13 @@ def measure_detection_performance(detections, labels, labels_valid, min_iou=0.5)
     # compute positives and negatives for precision/recall
     
     ## step 1 : compute the total number of positives present in the scene
-    all_positives = 0
+    all_positives = sum(labels_valid)
 
     ## step 2 : compute the number of false negatives
-    false_negatives = 0
+    false_negatives = sum(labels_valid) - true_positives
 
     ## step 3 : compute the number of false positives
-    false_positives = 0
+    false_positives = len(detections) - true_positives
     
     #######
     ####### ID_S4_EX2 END #######     
@@ -111,12 +128,13 @@ def compute_performance_stats(det_performance_all):
     print('student task ID_S4_EX3')
 
     ## step 1 : extract the total number of positives, true positives, false negatives and false positives
+    pos,TP,FN,FP = np.sum(np.array(pos_negs),axis=0)
     
     ## step 2 : compute precision
-    precision = 0.0
+    precision = TP/(TP+FP)
 
     ## step 3 : compute recall 
-    recall = 0.0
+    recall = TP/(TP+FN)
 
     #######    
     ####### ID_S4_EX3 END #######     
