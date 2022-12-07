@@ -149,9 +149,11 @@ These are some examples of the available data and other scenarios can be found. 
 
 Next, we inserted the code for the creation of the height map
 <img src="report/height_img_frame51.png"/>
+
 and the intensity map
 <img src="report/intensity_img_frame51.png"/>
-To visualize these maps, modify the following param: exec_detection = ['bev_from_pcl']
+
+To visualize these maps, modify the following param: 'exec_detection = ['bev_from_pcl']'
 
 And we added the visualization of the labels both on images and on height maps:
 <img src="report/labels_vs_detectedObj_frame51.png"/>
