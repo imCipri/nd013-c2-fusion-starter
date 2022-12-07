@@ -139,8 +139,8 @@ First, we look at the point-cloud images from the dataset, by setting the follow
 
 We can observe some of the following scenarios:
 1. <img src="report/2_near_cars.png"/> In this frame, we can see 4 cars of different type and with different visibility. The one closest to the sensor is cut due to the dead-zone of the sensor. The one behind that is perfectly visible in this frame. Regarding the two cars in the background, the closest one has the lower-anterior part cut due to the obstruction of the car in the front, whereas the farther one is almost fully visible thanks to the increased height of the vehicle.
-2. <img src="report/back_cars"/> In this frame, we look at the back of the car. We can see a line of 6 cars. They show a decreasing visibility due to the distance and the obstruction caused by the other cars. Moreover, the angles with which the sensor hits the cars change with the distance, reducing the impacted area on the vehicle and therefore its visibility.
-3. <img src="report/overlapped_cars"/> Finally, in this frame, we cannot state the presence of cars behind the 4 in the front.
+2. <img src="report/back_cars.png"/> In this frame, we look at the back of the car. We can see a line of 6 cars. They show a decreasing visibility due to the distance and the obstruction caused by the other cars. Moreover, the angles with which the sensor hits the cars change with the distance, reducing the impacted area on the vehicle and therefore its visibility.
+3. <img src="report/overlapped_cars.png"/> Finally, in this frame, we cannot state the presence of cars behind the 4 in the front.
 
 
 
