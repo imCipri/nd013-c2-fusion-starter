@@ -183,7 +183,12 @@ As shown in the image below, the code returns both perfect precision/recall and 
 <img src="report/stats_check.png"/>
 
 
-
+## TRACKING
+<img src="report/final_frame_step1.png"/>
+<img src="report/rmse_step1.png"/>
+<img src="report/rmse_step2.png"/>
+<img src="report/rmse_step3.png"/>
+<img src="report/rmse_step4.png"/>
 
 
 NB. The code written outside the defined areas (identified by ####### ID_S(x)_EX(y) START ####### to the END) is under the license of UDACITY for the sole purpose of the project execution (see LICENCE.md file)
