@@ -9,6 +9,15 @@ For the tracking phase, we implemented four different steps. In the order, they 
 ### Step 1
 The goal for the first step was to implement an EKF to track a single object with lidar measurements. This code has been implemented in student/filter.py.
 
+The following params have to be set on loop_over_dataset.py to implement this step:
+- set Sequence 2
+- show_only_frames = [150,200]
+- configs_det = det.load_configs(model_name='fpn_resnet')
+- configs_det.lim_y = [-5,10] --> This will remove some targets from the data
+- exec_detection = []
+- exec_tracking = ['perform_tracking']
+- exec_visualization = ['show_tracks']
+
 The result is shown in the following img:
 
 <img src="report/final_frame_step1.png"/>
@@ -23,18 +32,33 @@ The Trackmanagement classe has 2 main functions:
 1. manage_tracks() -> decrease track score for unassigned tracks and delete tracks if the score is too low or P is too big
 2. handle_updated_track() -> increase the track score and change the track state from 'initiated' to 'tentative' or 'confirmed'.
 Now the tracks will show a changing color depending on their state and they are deleted when they are no more in the fov of the sensor for a couple of frames.
+
+The following params have to be set on loop_over_dataset.py to implement this step:
+- show_only_frames = [65,100]
+- configs_det.lim_y = [-5,15] --> This will remove some targets from the data
+
 The RMSE in this case is high (around 0.8) because the lidar detections contain a y-offset, which cannot be compensated by the KF because we assume a zero-mean data.
 
 <img src="report/rmse_step2.png"/>
 
 ### Step 3
 In the third step, we had to implement the SNN (Single Nearest Neighbor) data association algorithm to associate measurements to tracks. Now we have multiple objects and the tracks have to be assigned correctly to the corresponding object. We observed also the creation of some ghost tracks for a couple of frames due to False Positives from the object detection network. However, they will be deleted almost immediately, and in this case, they never appear in front of the car, so they should not cause erraneous behavior (for example, emergency braking).
+
+The following params have to be set on loop_over_dataset.py to implement this step:
+- set Sequence 1
+- show_only_frames = [0,200]
+- configs_det.lim_y = [-25,25]
+
 The RMSE is now showing multiple tracks. We can see that some of them are created and deleted quickly.
 
 <img src="report/rmse_step3.png"/>
 
 ### Step 4
 Finally, in the fourth step, we implemented sensor fusion by adding the nonlinear camera measurement model. 
+
+The following params have to be set on loop_over_dataset.py to implement this step:
+- exec_visualization = ['show_tracks','make_tracking_movie']
+
 Thanks to the integration of the camera data, we observed the disappearance of the ghost tracks. Probably, this is due to the fact that the FP are not detected by the camera and so they are erased when the camera data is fed to the EKF.
 
 <img src="report/rmse_step4.png"/>
