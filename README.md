@@ -183,42 +183,6 @@ As shown in the image below, the code returns both perfect precision/recall and 
 <img src="report/stats_check.png"/>
 
 
-## SENSOR FUSION AND OBJECT TRACKING
-After the implementation of the steps above to open and analyze data, in this section we implemented four different steps. In the order, they are: EKF, track management, data association, camera-lidar sensor fusion.
-
-### Step 1
-The goal for the first step was to implement an EKF to track a single object with lidar measurements. This code has been implemented in student/filter.py
-The result is shown in the following img:
-
-<img src="report/final_frame_step1.png"/>
-
-We can see how the filter is able to track correctly the object. The overal RMSE is under 0.35 with just a single higher peak at the beginning of the tracking phase due to probably the higher initial uncertainty on the velocity of the obj.
-
-<img src="report/rmse_step1.png"/>
-
-### Step 2
-In the second step, we had to implement the track management module to initialize and delete tracks, and set track state and score.
-The Trackmanagement classe has 2 main functions:
-1. manage_tracks() -> decrease track score for unassigned tracks and delete tracks if the score is too low or P is too big
-2. handle_updated_track() -> increase the track score and change the track state from 'initiated' to 'tentative' or 'confirmed'.
-Now the tracks will show a changing color depending on their state and they are deleted when they are no more in the fov of the sensor for a couple of frames.
-The RMSE in this case is high (around 0.8) because the lidar detections contain a y-offset, which cannot be compensated by the KF because we assume a zero-mean data.
-
-<img src="report/rmse_step2.png"/>
-
-### Step 3
-In the third step, we had to implement the SNN (Single Nearest Neighbor) data association algorithm to associate measurements to tracks. Now we have multiple objects and the tracks have to be assigned correctly to the corresponding object. We observed also the creation of some ghost tracks for a couple of frames due to False Positives from the object detection network. However, they will be deleted almost immediately, and in this case, they never appear in front of the car, so they should not cause erraneous behavior (for example, emergency braking).
-The RMSE is now showing multiple tracks. We can see that some of them are created and deleted quickly.
-
-<img src="report/rmse_step3.png"/>
-
-### Step 4
-Finally, in the fourth step, we implemented sensor fusion by adding the nonlinear camera measurement model. 
-Thanks to the integration of the camera data, we observed the disappearance of the ghost tracks. Probably, this is due to the fact that the FP are not detected by the camera and so they are erased when the camera data is fed to the EKF.
-
-<img src="report/rmse_step4.png"/>
-
-
 NB. The code written outside the defined areas (identified by ####### ID_S(x)_EX(y) START ####### to the END) is under the license of UDACITY for the sole purpose of the project execution (see LICENCE.md file)
 
 
