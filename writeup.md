@@ -38,7 +38,8 @@ Finally, in the fourth step, we implemented sensor fusion by adding the nonlinea
 Thanks to the integration of the camera data, we observed the disappearance of the ghost tracks. Probably, this is due to the fact that the FP are not detected by the camera and so they are erased when the camera data is fed to the EKF.
 
 <img src="report/rmse_step4.png"/>
-![Tracking_video](/report/my_tracking_results.gif "Multiple-objects tracking video")
+
+![Report video](/report/my_tracking_results.gif "Multiple-objects tracking video")
 
 ### Considerations: 
 Thanks to the lectures and the various exercises, implementing these 4 steps was quick and straightforward! It's amazing to see how these apparently complex tasks can be divided into well defined steps.
