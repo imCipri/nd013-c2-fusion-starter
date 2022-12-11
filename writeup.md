@@ -7,12 +7,13 @@ Please use this starter template to answer the following questions:
 For the tracking phase, we implemented four different steps. In the order, they are: EKF, track management, data association, camera-lidar sensor fusion.
 
 ### Step 1
-The goal for the first step was to implement an EKF to track a single object with lidar measurements. This code has been implemented in student/filter.py
+The goal for the first step was to implement an EKF to track a single object with lidar measurements. This code has been implemented in student/filter.py.
+
 The result is shown in the following img:
 
 <img src="report/final_frame_step1.png"/>
 
-We can see how the filter is able to track correctly the object. The overal RMSE is under 0.35 with just a single higher peak at the beginning of the tracking phase due to probably the higher initial uncertainty on the velocity of the obj.
+We can see how the filter is able to track the object correctly. The overal RMSE is under 0.35 with just a single higher peak at the beginning of the tracking phase due to probably the higher initial uncertainty on the velocity of the obj.
 
 <img src="report/rmse_step1.png"/>
 
