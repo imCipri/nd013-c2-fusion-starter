@@ -47,8 +47,15 @@ class Sensor:
         # TODO Step 4: implement a function that returns True if x lies in the sensor's field of view, 
         # otherwise False.
         ############
+        pos_veh = np.ones((4,1))
+        pos_veh[0:3] = x[0:3]
+        x_to_sens = self.veh_to_sens*pos_veh
+        alpha_x = np.arctan2(x_to_sens[1],x_to_sens[0])
 
-        return True
+        if alpha_x > self.fov[0] and alpha_x < self.fov[1]:
+            return True
+        else:
+            return False
         
         ############
         # END student code
@@ -70,9 +77,15 @@ class Sensor:
             # - make sure to not divide by zero, raise an error if needed
             # - return h(x)
             ############
+            pos_veh = np.ones((4,1))
+            pos_veh[0:3] = x[0:3]
+            pos_sens = self.veh_to_sens*pos_veh
+            h_x = np.zeros((self.dim_meas,1))
+            if pos_sens[0] > 0:
+                h_x[0] = self.c_i - self.f_i*pos_sens[1]/pos_sens[0]
+                h_x[1] = self.c_j - self.f_j*pos_sens[2]/pos_sens[0]
 
-            pass
-        
+            return h_x
             ############
             # END student code
             ############ 
@@ -115,9 +128,10 @@ class Sensor:
         # TODO Step 4: remove restriction to lidar in order to include camera as well
         ############
         
-        if self.name == 'lidar':
-            meas = Measurement(num_frame, z, self)
-            meas_list.append(meas)
+        #if self.name == 'lidar':
+        meas = Measurement(num_frame, z, self)
+        meas_list.append(meas)
+        
         return meas_list
         
         ############
@@ -155,8 +169,12 @@ class Measurement:
             ############
             # TODO Step 4: initialize camera measurement including z and R 
             ############
+            self.z = np.zeros((sensor.dim_meas,1))
+            self.z[0] = z[0]
+            self.z[1] = z[1]
 
-            pass
+            self.R = np.matrix([[params.sigma_cam_i**2 , 0],
+                                [0 , params.sigma_cam_j**2]])
         
             ############
             # END student code
