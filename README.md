@@ -182,6 +182,9 @@ This is obtained by modify the flag: 'configs_det.use_labels_as_objects = True'.
 As shown in the image below, the code returns both perfect precision/recall and no errors in the regression part as aspected.
 <img src="report/stats_check.png"/>
 
+## TRACKING
+The tracking phases are explained in the writeup.md.
+
 
 NB. The code written outside the defined areas (identified by ####### ID_S(x)_EX(y) START ####### to the END) is under the license of UDACITY for the sole purpose of the project execution (see LICENCE.md file)
 
